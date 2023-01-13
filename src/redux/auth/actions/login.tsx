@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { moduleName } from "../reducer";
-import { AccountsClient } from "../../apollo";
-import gql from "graphql-tag";
+import { AccountsClient } from "../../../graphql/accounts/client";
+import { toast } from "react-toastify";
+import { obtainToken } from "../../../graphql/accounts/mutations";
+import { prepMutation } from "../../utils";
 
 export const login = createAsyncThunk(
   moduleName + "/login",
@@ -9,27 +11,29 @@ export const login = createAsyncThunk(
     // Create a promise which will resolve a graphql query to the endpoint http://localhost:8000/accounts/graphql
     // and will dispatch the post_login reducer if the response is successful
 
-    const LOGIN_MUTATION = gql`
-      mutation {
-        obtainToken(email: "${payload.email}", password: "${payload.password}") {
-          user {
-            id
-            username
-          }
-          accessToken
-          refreshToken
+    var LOGIN_MUTATION = prepMutation(
+      obtainToken,
+      `
+        user {
+          email
         }
-      }
-    `;
+        accessToken
+        refreshToken
+      `
+    );
 
     var mutation = AccountsClient.mutate({
       mutation: LOGIN_MUTATION,
+      variables: {
+        email: payload.email,
+        password: payload.password,
+      },
     });
 
     mutation
       .then((response) => {
         // If the response is successful, dispatch the post_login reducer
-        console.log("success");
+        toast.success("Login successful");
         dispatch({
           type: moduleName + "/post_login",
           payload: {
@@ -44,7 +48,9 @@ export const login = createAsyncThunk(
         });
       })
       .catch((error) => {
-        console.log(error);
+        // Show only the relevant error message
+        console.log(error.graphQLErrors);
+        toast.error(" " + error.graphQLErrors[0].message);
       });
 
     return mutation;

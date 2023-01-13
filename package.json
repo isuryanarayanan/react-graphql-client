@@ -4,9 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "local": "NODE_ENV=local vite --host",
+    "development": "NODE_ENV=development vite --host",
+    "production": "NODE_ENV=production vite --host",
+    "build:local": "NODE_ENV=local vite build",
+    "build:development": "NODE_ENV=development vite build",
+    "build:production": "NODE_ENV=production vite build"
   },
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
@@ -19,7 +22,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.6.1"
+    "react-router-dom": "^6.6.1",
+    "react-toastify": "^9.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
