@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { login } from "../redux/auth/actions/login";
 import { useAppDispatch } from "../redux/store";
 
@@ -6,6 +7,13 @@ function Login() {
   const dispatch = useAppDispatch();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // If the form is submitted and either of the field is empty then return
+    // a toast message to the user
+    if (!e.currentTarget.email.value || !e.currentTarget.password.value) {
+      toast.error("Please fill in all the fields");
+      return;
+    }
 
     const email = e.currentTarget.email.value;
     const password = e.currentTarget.password.value;

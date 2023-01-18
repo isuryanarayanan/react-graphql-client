@@ -1,13 +1,11 @@
 // Mutations for the accounts app are defined here
-
-import { gql } from "@apollo/client";
 import { Mutation } from "../interfaces";
 
 export const createUser: Mutation = {
   name: "createUser",
   request: `
-    mutation CreateUser($username: String!, $password: String!) {
-      createUser(username: $username, password: $password) {
+    mutation CreateUser($email: String!, $username: String!, $password: String!) {
+      createUser(email:$email, username: $username, password: $password) {
         ---query---
       }
     }
@@ -16,9 +14,10 @@ export const createUser: Mutation = {
     user {
       id
       username
+      email
     }
   `,
-  args: ["username", "password"],
+  args: ["email", "username", "password"],
 };
 
 export const obtainToken: Mutation = {

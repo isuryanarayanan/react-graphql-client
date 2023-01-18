@@ -1,19 +1,15 @@
-import { DocumentNode } from "graphql";
-
 export interface Environment {
   // Environment type will be used to define new environments,
   // Environment will have a name, an app and server endpoint
   name: string;
-  server: string;
+  server: string; // api.glitchh.in
 }
 
 export interface App {
   // App type will be used to define new apps, apps will have a name
   // an endpoint, and a list of mutations
   name: string;
-  endpoint: string;
-  mutations: string[];
-  queries: string[];
+  endpoint: string; // accounts/graphql
 }
 
 export interface Mutation {

@@ -15,6 +15,7 @@ export const login = createAsyncThunk(
       obtainToken,
       `
         user {
+          id
           email
         }
         accessToken
@@ -49,7 +50,6 @@ export const login = createAsyncThunk(
       })
       .catch((error) => {
         // Show only the relevant error message
-        console.log(error.graphQLErrors);
         toast.error(" " + error.graphQLErrors[0].message);
       });
 

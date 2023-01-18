@@ -11,8 +11,6 @@ export function prepMutation(mutation: Mutation, body: string | null) {
     newRequest = request.replace("---query---", body);
   }
 
-  console.log(newRequest);
-
   return gql(newRequest);
 }
 
@@ -27,10 +25,4 @@ export function prepQuery(query: Query, body: string | null) {
   }
 
   return gql(newRequest);
-}
-
-export function errorHandler(error: any) {
-  // This function will be used to handle errors
-
-  console.log(error);
 }

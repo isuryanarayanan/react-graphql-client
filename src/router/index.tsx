@@ -1,8 +1,9 @@
 import {
-  createBrowserRouter,
   Route,
+  createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+
 import App from "../App";
 import Home from "../views/Home";
 import Login from "../views/Login";
@@ -13,8 +14,8 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/" element={<Home />} />
-      <Route path="login/" element={<Login />} />
-      <Route path="register/" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )

@@ -5,7 +5,12 @@ export const apps: App[] = [
   {
     name: "accounts",
     endpoint: "accounts/graphql/",
-    mutations: ["createUser", "obtainToken", "refreshToken", "verifyToken"],
-    queries: ["fetchUsers"],
   },
 ];
+
+// Check if all the apps have a unique name and a folder associated with it inside graphql folder
+const appNames = apps.map((app) => app.name);
+const uniqueAppNames = new Set(appNames);
+if (appNames.length !== uniqueAppNames.size) {
+  throw new Error("App names are not unique");
+}
